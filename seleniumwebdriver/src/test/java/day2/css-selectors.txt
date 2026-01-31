@@ -1,8 +1,8 @@
-CSS Locators
+CSS Selectors
 ------------
 A powerful and fast method that uses CSS expressions to target elements based on their attributes, position, and hierarchy.
 
-CSS Locators:
+CSS Selectors:
 1. tag id                   tag#id
 2. tag class                tag.class
 3. tag attribute            tag[property='value']

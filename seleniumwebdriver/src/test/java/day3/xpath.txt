@@ -1,0 +1,125 @@
+XPath
+-----
+
+XPath(XML Path) is an expression that is used to find the element or say node in the XML document (DOM).
+In Selenium it is commonly used to find the web elements.
+
+Syntax: //tagname[@attribute = 'value']
+
+XPath expressions:
+-----------------
+1. //           Selects nodes in the document from the current node that match the selection no matter where they are(Direcltyjumps to that element).
+2. /            Selects the root node
+3. tagname      tagname of the element (current node in the DOM)
+4. @            select the attribute
+5. attribute    attribute name of the node or element
+6. value        value of the attribute
+
+Types of XPath
+--------------
+1. Absolute XPath
+2. Relative XPath
+
+1. Absolute XPath (Full XPath):
+------------------------------
+--> Absolute XPath uses the root element of the HTML/XML code and followed by all the elements which are necessary to reach the desired element.
+--> It starts with the forward slash '/' 
+--> Example: /html/body/div[6]/header/div[2]/div[1]/a/img
+--> It starts from the root element and goes until the required element is found in the DOM.
+
+2. Relative XPath (Partial XPath):
+---------------------------------
+--> XPath begins with the double forward slash '//' which means it can search the element anywhere in the Webpage.
+--> It is preferrable because as they are not complete path from Root node.
+--> Example: //input[@placeholder='search']
+
+How to find an XPath?
+---------------------
+1. Go the web page and inspect the page 
+2. Highlight the element and in the DOM right click on it
+3. Then select copy either "full XPath" or "abs XPath"
+4. You can use SelectorsHub also to find the XPaths.
+
+Difference between Absolute XPath and Relative XPath?
+-----------------------------------------------------
+1. Absolute XPath starts with "/" (represents root node) while Relative XPath starts with "//"
+2. Absolute XPath do not use attributes but Relative XPath works with attributes
+3. Absolute XPath traverse through each node or element from the root node till it finds the element
+   Relative XPath direclty jumps and find the element using the attribute
+
+Always Relative XPath is preferable why?
+----------------------------------------
+--> Assume that the developer always changes the elements in the webpage, maybe position in the page
+    and what happens to your Absolute XPath
+    lets say this is the abs XPath /html/body/div[6]/header/div[2]/div[1]/a/img
+    later developer changed the location or hierarchy of the tag "img"
+    then your previous XPath does not work because developer changed the location or hierarchy in the DOM
+    Hence it is not preferable
+--> Relative XPath works with attributes, even though developer changed the location or hierarchy o the element
+    continously it works because it depends on attributes. it remains unchanged
+
+
+Relative XPath:
+--------------
+1. Automatically find XPath from using devtools, SelectorsHub and etc.
+2. Manually write the relative xpath
+
+Syntax: //tagname[@attribute] where attribute --> property='value'
+                        (or)
+        //*[@attribute='value'] --> if you do not know the tagname then use *
+Example: //input[@placeholder='search'] or //*[@placeholder='search'] both will work
+
+
+XPath with single attribute
+---------------------------
+--> An XPath with a single attribute is a powerful expression used to locate specific elements within
+    an XML or HTML document (DOM) by referencing one of the element's attributes and its value. 
+Example: driver.findElement(By.xpath("//input[@id='small-searchterms']")).sendKeys("Mac");
+
+
+XPath with multiple attributes
+------------------------------
+--> XPath with multiple attributes is a method for precisely locating an element in an XML or HTML document 
+    by combining two or more conditions on its attributes.
+--> it is used when single attribute is not enough to identify the element in the xml or html document
+Example: driver.findElement(By.xpath("//input[@id='small-searchterms'][@placeholder='Search store']")).sendKeys("MacBook");
+Syntax: //tagname[@attribute1='value1'][@attribute2='value2"]
+
+
+xpath with and operator
+-----------------------
+--> "and" operator is used when all attributed and ANDed together, all conditions are satisfied
+Syntax: //tagname[attribute='value' and attribute='value']
+--> Example: driver.findElement(By.xpath("//input[@id='small-searchterms' and @placeholder='Search store']")).sendKeys("windows");
+--> There is no difference between "and" operator and xpath with multiple attributes both are same.
+
+
+xpath with or operator
+----------------------
+--> "or" operator is used when at least one condition is true
+--> at least one attribute is matched then it finds the element
+Syntax: //tagname[attribute='value' or attribute='value']
+--> Example: driver.findElement(By.xpath("//input[@id='small-searchterms' or @placeholder='Sch store']")).sendKeys("windows");
+
+
+we can write the relative xpath without attributes also by using inner text
+---------------------------------------------------------------------------
+--> Inner text is the text in which it lies in between opening tag and closing tag.
+--> Example: <h1>Hello</h1> here "Hello" is inner text
+
+Syntax: //tagname[text()='inner text'], it goes to the tag and "text()" method return the inner text then it validates
+--> Example: driver.findElement(By.xpath("//a[text()='Apple MacBook Pro']")).click();
+
+
+NOTE:
+    1. All link text can be inner text.
+    2. All inner text cannot be link text.
+
+    1. <a href="https://befkj.com">click me</a>
+    2. <h1>Hello</h1>
+
+    Observe the above two html elements,
+    first element is both inner text and link text
+    second element is only inner text but it can't link text
+
+
