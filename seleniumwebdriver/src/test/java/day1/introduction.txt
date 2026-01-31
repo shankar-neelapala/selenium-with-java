@@ -1,0 +1,52 @@
+Selenium with java
+------------------
+
+What is Selenium?
+1. It is widely used open source framework.
+2. Selenium is a web based automation tool used to test the web based application across different browsers
+(chrome, firefox, edge) and different operating systems like Windows, Linux, Mac.
+
+Three main components of Selenium:
+1. Selenium WebDriver
+2. IDE
+3. Grid
+
+What is Selenium WebDriver?
+1. Selenium WebDriver is one of the component in Selenium
+2. WebDriver is a java interface
+3. WebDriver is an API
+
+WebDriver(interface) --> RemoteWebDriver(class) --> ChromeDriver, FirefoxDriver, EdgeDriver(classes)
+
+WebDriver is an API:
+    Here java application and browsers are two different programs these two are communicate with the help of 
+    WebDriver. Hence it acts as an API between java application and browser.
+
+    Java application       <---->         WebDriver       <---->     Browsers
+    (Eclipse, Intellij)                  (interface)                 (chrome, firefox, Linux)
+
+
+Based on which browser you are going to automate the testing then respecive object for that browser is created.
+let's say if you are testing your web application on chrome then create an object for ChromeDriver.
+
+
+Environment setup
+-----------------
+1. Create a java project and then manually add all Selenium WebDriver jar files(.jar)
+--> Create a java project(Eclipse or Intellij).
+--> Download WebDriver jar files and extract it.
+--> Add jars in java project.
+--> Right click on the project --> properties --> java build path --> libraries --> select classpath --> add.
+
+2. Creating a maven project
+--> Create a maven project
+--> Open pom.xml file.
+--> Inside dependencies section add Selenium WebDriver dependency
+1. Go to official page https://mvnrepository.com/
+2. search for Selenium and select version and copy the dependency
+3. Update the maven project to install Selenium WebDriver dependencies.
+
+
+For testing purpose use:
+src/test/java
+src/test/resources

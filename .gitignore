@@ -1,0 +1,93 @@
+############################
+# OS-specific
+############################
+.DS_Store
+Thumbs.db
+
+############################
+# Eclipse IDE
+############################
+.metadata/
+.recommenders/
+.settings/
+.project
+.classpath
+.factorypath
+.externalToolBuilders/
+.launches/
+
+############################
+# IntelliJ / VS Code (safe to ignore even if unused)
+############################
+.idea/
+.vscode/
+*.iml
+
+############################
+# Java build output
+############################
+bin/
+out/
+*.class
+
+############################
+# Maven
+############################
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+.buildNumber
+
+############################
+# Gradle
+############################
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+############################
+# Logs & temp files
+############################
+*.log
+*.tmp
+*.temp
+
+############################
+# Selenium / Test artifacts
+############################
+test-output/
+reports/
+screenshots/
+allure-results/
+allure-report/
+
+############################
+# Environment / secrets
+############################
+.env
+*.env
+*.properties
+!application.properties
+
+############################
+# Archives
+############################
+*.zip
+*.tar
+*.tar.gz
+*.rar
+
+############################
+# Node (if frontend or tools used)
+############################
+node_modules/
+
+############################
+# Git
+############################
+.git/
+.gitignore.bak

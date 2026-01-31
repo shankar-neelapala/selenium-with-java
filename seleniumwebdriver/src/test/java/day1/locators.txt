@@ -1,0 +1,76 @@
+Locators
+--------
+
+1. Locators are used to identify the elements on the webpage.
+2. Locators are addressed that identify a web element uniquely within the page.
+
+Locators:
+--------
+1. id
+2. name
+3. linktext
+4. partiallinktext
+5. classname
+6. tagname
+
+Customized Locators:
+------------------
+a. CSS Selectors
+    1. tag id
+    2. tag class
+    3. tag attribute
+    4. tag class attribute
+b. XPath 
+    1. Absolute XPath
+    2. Relative XPath
+
+
+Traditional Locators:
+-->These locators identify elements based on their attributes or position in the DOM structure. 
+
+Syntax to an element on the page:
+    WebElement element = driver_object.findElement(locator);// return single web element
+    List<WebElement> elements = driver_object.findElements(locator);//return group of elements
+
+1. id
+--> The most reliable and fastest locator, as IDs are intended to be unique for each element on a page.
+--> Example: driver.findElement(By.id("username"));
+
+2. name
+--> Used to locate elements by their name attribute, commonly found in form elements like input fields and radio buttons.
+--> Example: driver.findElement(By.name("search-query"));
+
+3. linktext
+--> Used to find hyperlinks (<a> tags) based on their exact, visible text.
+--> Example: driver.findElement(By.linkText("About me")).click();
+
+4. partiallinktext
+--> Locates hyperlinks by matching a portion of their visible text. This is helpful when the link text is very long or dynamic.
+--> driver.findElement(By.partialLinkText("About")).click();
+
+The above four locators return single web element. i.e, these web elements are used to locate a single web element.
+
+
+
+5. classname
+--> Locates elements that share a common CSS class attribute.
+--> Example: List<WebElement> total = driver.findElements(By.className("link-cls"));
+
+6. tagname
+--> Finds elements based on their HTML tag (e.g., div, a, input). This is useful for finding all elements of a specific type.
+--> Example: List<WebElement> links = driver.findElements(By.tagName("a"));
+
+The above two locators are used to find a specific group of web elements on the webpage
+
+Note:
+1. By is a pre defined class in java
+2. It contains pre defined methods like id(), name(), className(), linkText() etc. 
+
+If locator is not matched with any web element then,
+1. findElement() throws NoSuchElement exception.
+2. findElements() does not throw any exception but list size is "0".
+
+
+Only two things plays in selenium
+1. How to find an element.
+2. What are the actions to be performed on that web element.
