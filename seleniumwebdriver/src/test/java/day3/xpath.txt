@@ -112,6 +112,7 @@ Syntax: //tagname[text()='inner text'], it goes to the tag and "text()" method r
 
 
 NOTE:
+    text() and . both are same (instead of writing text() we can put . also)
     1. All link text can be inner text.
     2. All inner text cannot be link text.
 
@@ -121,5 +122,72 @@ NOTE:
     Observe the above two html elements,
     first element is both inner text and link text
     second element is only inner text but it can't link text
+
+
+contains()
+---------
+--> contains() method is used to find an element by using sub string of the string, i.e attribute value
+--> You don't need to give the full value of the attribute, just a part of it.
+Syntax: //tagname[contains(@attribute,'value')]
+--> Example: //input[contains(@id='small')], if id value contains 'searchterms' then it will identify the element
+Here id = small-searchterms
+
+Example:
+--------
+Let's say tagname is 'input' and one of the attribute is placeholder and its value is 'Search store'
+In different ways you can write xpath using contains() method. i.e, different sub strings.
+--> driver.findElement(By.xpath("//input[contains(@placeholder,'store')]")).sendKeys("Mac");
+--> driver.findElement(By.xpath("//input[contains(@placeholder,'ore')]")).sendKeys("Mac");
+--> driver.findElement(By.xpath("//input[contains(@placeholder,'Search store')]")).sendKeys("Mac");
+--> driver.findElement(By.xpath("//input[contains(@placeholder,'st')]")).sendKeys("Mac");
+
+starts-with()
+-------------
+--> starts-with() method is used to find an element in the xml/html document by using the starting portion value of the attribute
+--> You have to specify the starting value of the attribute
+--> For example id = 'search store' then we can search this element by starting value of the attribute like 'sea', 'search', 'search st' in all possible ways
+Syntax: //tagname[starts-with(@attribute,'value')]
+Example: driver.findElement(By.xpath("//input[starts-with(@placeholder, 'Sea')]")).sendKeys("Linux");
+        driver.findElement(By.xpath("//input[starts-with(@placeholder, 'Search s')]")).sendKeys("Linux");
+
+Difference between contains() and starts-with():
+--> contains() method can check the string in anywhere
+--> starts-with() method can check the string from begining of the string
+
+These two methods are very important in case of dynamic attributes
+-------------------------------------------------------------------
+1. Handling dynamic attributes --> attribute values are always changed.
+--> lets say there is an attribute called name and its value is keep changing like,
+
+name = abc001, abc002, abc003, abc004
+to write xpath for these dynamic attribute is possible by using contains() or starts-with() methods
+Example: //*[contains(@name,'abc')] or //*[contains(@name,'00')] or //*[contains(@name,'ab')]
+        //*[starts-with(@name,'abc')] or //*[starts-with(@name,'ab')]
+
+
+Chained XPath
+-------------
+--> If you don't have any attributes of a particular element then you go to its parent element until you find an attribute in the parent element.
+
+Observe the following html code
+<div id="logo">
+    <a href="https://abc.com/"> 
+        <img src="https://xyz.com"/>
+    </a>
+</div>
+
+--> You want identify the img element but it does not have any attributes or inner text.
+--> Then you go its parent element and see is there any attributes are there no. keep going to its parent element(grand parent of img)
+--> There is an attribute called logo from that element you have write the xpath
+
+Syntax:
+-------
+//parent-tag[@parent-attribute = 'value']/path to reach the required element
+
+In the above case the xpath will be: //div[@id='logo']/a/img
+--> This is combination of relative and absolute xpath
+--> //div[@id='logo'] this is relative xpath
+--> /a/img this is absolute xpath
+--> So chained xpath is combination of relative and absolute xpath.
 
 

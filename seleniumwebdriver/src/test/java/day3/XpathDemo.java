@@ -12,7 +12,7 @@ public class XpathDemo {
 		
 		driver.manage().window().maximize();
 		
-		//xpath with single attribute
+		//xpath with single attribute		
 		//driver.findElement(By.xpath("//input[@id='small-searchterms']")).sendKeys("Mac");
 		//driver.findElement(By.xpath("//*[@id='small-searchterms']")).sendKeys("Mac");
 		
