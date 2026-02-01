@@ -1,0 +1,292 @@
+XPath Axes
+----------
+
+--> XPath axes in Selenium are used to locate web elements based on their relationship to a current (context) node in the HTML or XML Document Object Model (DOM)
+--> This provides a flexible and dynamic way to find elements when standard locators like ID, name, or class name are insufficient or the content is dynamic. 
+--> By leveraging these axes, you can traverse the DOM structure in various directions (up, down, or sideways) from a known starting element. 
+--> The syntax for using an XPath axis is generally
+    //initial_element_xpath/axis::target_element_tagname
+
+self axis (self::)
+------------------
+--> Selects the current node itself. It can be abbreviated as a single period (.).
+Example: //div[@class='Mammal']/self::div    selects the element with the class 'Mammal'. 
+
+parent axis (parent::)
+----------------------
+--> Selects the immediate parent of the current node. It can also be represented by the shorthand ..
+--> Every context node has exaclty ony parent element except root element(html)
+
+Syntax:
+1. //<knownXpath>/parent::elementName
+2. //<knownXpath>/parent::..
+3. //<knownXpath>/*
+
+<div id="logo">
+    <input id="details" name ="details" type="text"/> //content or self node
+</div>
+Example: //p[@id='details']/parent::div     selects the immediate parent div of the p element with id 'details'.
+
+
+child axis (child::)
+--------------------
+--> Child Axis in XPath is used to find all the child nodes of the current node. 
+Syntax:
+1. //<XPathOfContextElement>/child::elementName
+2. //<XPathOfContextElement>/child::*
+3. //<XPathOfContextElement>/elementName
+
+<div class="plant"> //content or self node
+    <input id="details" name ="details" type="text"/> 
+</div>
+Example: //div[@class='Plant']/child::input     selects direct child input element of the element with the class 'Plant'.
+
+What is there are multiple "input" childs for div tag
+--> Use index number to identify
+
+<div class="plant"> //content or self node
+    <input id="details" name ="details" type="text"/> 
+    <input id="logo" name ="logo-details" type="text"/> --target node
+</div>
+Example: //div[@class='Plant']/child::input[2]
+
+locating grandchildren
+----------------------
+syntax:
+1. //<XPathOfContextElement>/child/elementName
+2. //<XPathOfContextElement>/*/elementName
+Example:    //form[@id='logo']/child/input  --> input is a grandchildren of form element
+
+
+XPath descendant axis (Descendent::)
+------------------------------------
+--> The Descendant Axis is used to access all the children and sub-children of the current node.
+--> It is similar to the child axis, but the fundamental difference between descendant and child is; descendant identifies only the children and sub-children of the same node.
+
+<bookstore>
+    <book>
+        <title>XPath Basics</title>
+        <author>
+            <name>John</name>
+        </author>
+    </book>
+</bookstore>
+------------------ The above HTML code is stored in the DOM as follows ---------------
+bookstore
+ └── book
+     ├── title
+     └── author
+         └── name
+
+1. Let's say the context or self or current node is "bookstore"
+--> The child axis selects ONLY the direct children of the current node
+2. current node is book then its childs are: "title" and "author" but not "name" becuase it is not a direct children to the book.
+    book
+    ├── title     ← child
+    └── author    ← child
+        └── name  ← NOT a child (grandchild)
+
+    /bookstore/book/child::* --> it gives title adn author
+3.The descendant axis selects ALL children, grandchildren, great-grandchildren…
+    book
+    ├── title        ← descendant
+    └── author       ← descendant
+        └── name     ← descendant
+
+    /bookstore/book/descendant::* --> it gives title, author and name also.
+
+    
+syntax:
+1. //<XPathOfContextElement>/descendant::elementName
+2. //<XPathOfContextElement>/descendant::*
+
+Example:
+-------
+<form id="logo" method="post" action="index.html">
+    <div id="loginpageheading"> Login Page</div>
+    <div id="username" class="inputtext">
+        <input name="text-username" id="text-username" type="text"/>
+        <span style="display:flex" class="hint">Username"</span>
+    </div>
+</form>
+XPath is:   //form[@id='logo']/descendant::input    --> identify the input element which is descendant of form element
+
+
+Ancestors axis (ancestor::)
+----------------------------
+--> This axis locates the ancestors of the current node, which includes the parents up to the root node.
+
+syntax:
+1. //<XPathOfContextElement>/ancestor::elementName
+2. //<XPathOfContextElement>/ancestor::*
+
+Example:
+-------
+<form id="logo" method="post" action="index.html">  -- target node
+    <div id="loginpageheading"> Login Page</div>
+    <div id="username" class="inputtext">
+        <input name="text-username" id="text-username" type="text"/>    -- context node
+        <span style="display:flex" class="hint">Username"</span>
+    </div>
+</form>
+
+XPath is:   //input[@id='text-username']/ancestor::form
+
+
+XPath following axis (following::)
+----------------------------------
+--> The following axis locates the element after the current node. 
+--> It marks the current node as the base and finds the required element present in the DOM  after the current node.
+
+syntax:
+1. //<XPathOfContextElement>/following::elementName
+2. //<XPathOfContextElement>/following::*
+
+📌 What it does
+1. Starts from the current node
+2. Selects all nodes that appear after it in the document order
+3. These nodes do NOT need to be siblings
+4. It can move down the DOM tree into child nodes of other elements
+--> Everything that comes after the current node in the HTML, no matter the level.
+
+Example:
+--------
+<html>
+ └── <body>
+      ├── <div id="A">
+      │    ├── <p id="B">Current Node</p>
+      │    └── <span id="C"></span>
+      ├── <section id="D">
+      │    └── <p id="E"></p>
+      └── <footer id="F"></footer>
+--> If current node p id="B"
+--> //p[@id='B']/following::*
+--> It selects all the following nodes 
+        <span id="C">
+        <section id="D">
+        <p id="E">
+        <footer id="F">
+
+
+following sibling axis (following-sibling::)
+--------------------------------------------
+--> The Xpath following sibling axis is similar to the following axis.
+--> Following-sibling recognizes only sibling nodes, i.e., the nodes on the same level of the current node. 
+
+syntax:
+1. //<XPathOfContextElement>following-sibling::elementName
+2. //<XPathOfContextElement>following-sibling::*
+
+📌 What it does
+1. Starts from the current node
+2. Selects only sibling nodes
+3. Must be on the same level
+4. Only those that appear after the current node
+
+Example:
+--------
+<html>
+ └── <body>
+      ├── <div id="A">
+      │    ├── <p id="B">Current Node</p>
+      │    └── <span id="C"></span>
+      ├── <section id="D">
+      │    └── <p id="E"></p>
+      └── <footer id="F"></footer>
+--> If current node p id="B"
+--> //p[@id='B']/following-sibling::*
+--> then node selected by following-sibling::
+    <span id="C"></span>
+    "Only same parent
+        Only same level"
+
+
+Feature	                                following	                    following-sibling
+-------                                 ---------                       -----------------
+Scope	                                Entire document after node	    Same parent only
+Level	                                Any level	                    Same level only
+Includes children of later nodes	    ✅ Yes	                       ❌ No
+Includes non-siblings	                ✅ Yes	                       ❌ No
+
+
+
+Xpath preceding axis (preceding::)
+----------------------------------
+--> The preceding axis is used in XPath to select all the nodes present before the current node. 
+--> We use it when we can recognize any element above the mentioned element.
+
+syntax:
+1. //<XPathOfContextElement>/preceding::elementName
+2. //<XPathOfContextElement>/preceding::*
+
+
+--> Selects all nodes that appear before the current node in the document,except ancestors.
+
+Example:
+--------
+<html>
+ └── <body>
+      ├── <header id="H"></header>
+      ├── <div id="A">
+      │    ├── <p id="B"></p>
+      │    ├── <p id="C"> ← Current Node
+      │    └── <p id="D"></p>
+      ├── <section id="E">
+      │    ├── <span id="F"></span>
+      │    └── <span id="G"></span>
+      └── <footer id="I"></footer>
+
+--> let's take <p id="C"> is the current node
+--> then preceding includes everything before this current element except parent and ancestor
+--> //p[@id='C']preceding::*
+    it gives result as  -->   <p id="B"> and <header id="H"> 
+    --> <div id="A"> is parent that's why it is not included
+    --> <header id="H"> is included becuase it not ancestor
+
+
+preceding
+1. Entire document before node
+2. Skips ancestors
+3. Can jump across sections
+
+
+Xpath preceding-sibling axis (preceding-sibling::)
+--------------------------------------------------
+--> Selects siblings before the current node, under the same parent only.
+
+syntax:
+1. //<XPathOfContextElement>/preceding-sibling::elementName
+2. //<XPathOfContextElement>/preceding-sibling::*
+
+Example:
+--------
+<html>
+ └── <body>
+      ├── <header id="H"></header>
+      ├── <div id="A">
+      │    ├── <p id="B"></p>
+      │    ├── <p id="C"> ← Current Node
+      │    └── <p id="D"></p>
+      ├── <section id="E">
+      │    ├── <span id="F"></span>
+      │    └── <span id="G"></span>
+      └── <footer id="I"></footer>
+
+--> let's take <p id="C"> is the current node
+--> preceding-sibling includes all the elements before the current element under the same parent only
+--> //id[@id='C']/preceding-sibling::* then result is
+    <p id="B">
+    becuase it only the preceding-sibling in this case
+
+
+
+------------------------------------------------------------------------------------------------------
+How to choose quickly
+Question	                                                Use
+--------                                                    ---
+Is it the same element?	                                    self
+Is it directly above or below?	                            parent / child
+Is it somewhere above?	                                    ancestor
+Is it somewhere below?	                                    descendant
+Is it beside me?	                                        preceding-sibling / following-sibling
+Is it anywhere else in the page?	                        preceding / following (last resort)
