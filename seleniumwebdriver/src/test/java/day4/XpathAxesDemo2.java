@@ -18,7 +18,11 @@ public class XpathAxesDemo2 {
 		//List<WebElement> f = driver.findElements(By.xpath("//section[contains(@class, 'category-grid')]/following::*"));
 		//System.out.println(f.size());
 		
-		driver.findElement(By.xpath("//section[contains(@class, 'category-grid')]/following::a[1]")).click();
+		driver.findElement(By.xpath("//div[contains(@class, 'search-box store-search-box')]//input")).sendKeys("Mac");
+		
+		
+		//follwing-sibling::
+		driver.findElement(By.xpath("//input[@id='small-searchterms']/following-sibling::button")).click();
 	}
 
 }

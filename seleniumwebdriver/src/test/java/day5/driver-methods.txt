@@ -1,0 +1,52 @@
+These predefined methods are used to interact with browser and web elements to automate the test.
+
+General category of methods:
+----------------------------
+
+1. get methods                  --> These methods control the behavior of the entire browser window
+2. conditional methods
+3. browser methods
+4. navigate methods
+5. wait methods
+
+1. get methods  --> we can access these through WebDriver instance
+------------------------------------------------------------------
+a. void get(String url)             --> This method is used to launch the web page on the browser
+b. String getTitle()                --> It returns the title of the current web page
+c. String getCurrentUrl()           --> It returns the current page url
+d. String getWindowHandle()         --> It returns the ID of the single browser window(tab)
+e. Set<String> getWindowHandles     --> It returns the ID's of multiple browser windows
+f. String getClass()                --> It returns the type of the instance
+
+getWindowHandle() and getWindowHandles() are two methods and they return browser window ID's.
+with this ID's we will perform actions on the window like close or quit the window based on window ID.
+Scenario:   There are multiple browser windows are opened and you want to close one particular window. 
+            This is possible by using these two methods.
+
+2. conditional methods  --> we can access these through WebElement 
+------------------------------------------------------------------
+a. isDisplayed()            --> It is used to check an element is displayed or not in the web page
+b. isEnabled()              --> It is used to check an element is enabled or not in the web page
+                                (like input boxes, search boxes if they are anabled then only we enter some data)
+c. isSelected()             --> Used to check elements like radio buttons, check boxes, drop-down are selected or not
+
+
+WebElement methods:
+------------------
+These methods interact with specific elements (like buttons, text fields, links, etc.) found on a web page using methods 
+like findElement() and findElements(). 
+
+1. click(): C                   --> licks on the element.
+2. sendKeys(String value):      --> Enters text into a text entry field or sends keyboard events.
+3. clear():                     --> Clears the content of a text entry field.
+4. submit():                    --> Submits a form.
+5. getText():                   --> Gets the visible text of the element.
+6. getAttribute(String name):   --> Gets the value of a specified attribute of the element (e.g., "href" for a link).
+
+
+3. browser methods  --> These method help to control the browser window
+-----------------------------------------------------------------------
+
+a. close()          --> close the current browser window where the driver is focused
+b. quit()           --> quits the driver and close all the browser window associated with it
+

@@ -290,3 +290,16 @@ Is it somewhere above?	                                    ancestor
 Is it somewhere below?	                                    descendant
 Is it beside me?	                                        preceding-sibling / following-sibling
 Is it anywhere else in the page?	                        preceding / following (last resort)
+
+
+
+| Axis                  | Traversal rule                                               |
+| --------------------- | ------------------------------------------------------------ |
+| `child::`             | Direct children only                                         |
+| `descendant::` (`//`) | All levels below                                             |
+| `parent::`            | One level up                                                 |
+| `ancestor::`          | All levels up                                                |
+| `following-sibling::` | Same parent, after                                           |
+| `preceding-sibling::` | Same parent, before                                          |
+| `following::`      	| **Anywhere after in document order (excluding descendants)** |
+| `preceding::`         | Anywhere before in document order                            |
