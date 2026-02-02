@@ -1,0 +1,110 @@
+Wait methods in Selenium
+------------------------
+why we need wait methods? because of "synchronization problem"
+
+What is synchronization problem?
+--> The synchronization problem in Selenium is a timing mismatch between the test automation script and the web application's loading speed.
+--> It means when executing the test script the driver could not find the elements in the web page because the page is not fully loaded. 
+--> It depends on speed of browser or page is loaded, so many factors can delay the speed like internet etc.
+
+The Problem Explained
+---------------------
+The core issue is that Selenium WebDriver, by default, does not inherently know when a web element is fully loaded, visible, or ready to be interacted with.
+If a script attempts an action (e.g., clicking a button or typing into a field) on an element before it is ready, the test will "fail fast" and throw exceptions such as: 
+1. NoSuchElementException: The element is not yet present in the Document Object Model (DOM).
+2. ElementNotVisibleException / ElementNotInteractableException: The element is present in the DOM but not currently visible or interactable 
+    (e.g., hidden by an overlay or still animating).
+3. StaleElementReferenceException: The element was found once, but the DOM has since refreshed, making the original reference outdated. 
+
+To avoid this problem we use wait methods and sleep method 
+Wait methods that are provided by selenium WebDriver are:
+1. implict wait 
+2. explict wait 
+3. fluent wait 
+
+Java itself provides a wait method which is in Thread class
+1.sleep method (Thread.sleep())
+
+
+NoSuchElementException  -- synchronization problem
+ElementNotFoundException    --incorrect locator
+
+Thread.sleep()
+--------------
+--> The Thread.sleep() method in Java is used to pause the execution of the currently running thread for a specified amount of time
+--> After the sleep duration ends, the thread becomes runnable again and continues execution based on thread scheduling.
+--> Throws InterruptedException if another thread interrupts during sleep.
+
+advantage
+1. Easy to use
+
+disadvantage
+1. If the time is not sufficient to find an element then you get an exception
+2. If the element is found in time even though it will wait for maximum time which leads to poor performance of script
+3. For every element which is expected to raise an synchronization problem you have write for all them(multiple times)
+
+Example: Thread.sleep(3000)
+        --> It will stop the exection, here it wait for 3000 milli seconds to find the element on the page
+        --> if it is not found within the time then it gives synchronization problem(NoSuchElementException)
+
+
+1. implict wait method
+----------------------
+--> A global setting that instructs the WebDriver to wait for a specified duration when trying to find any element before throwing a NoSuchElementException.
+--> It applies throughout the entire driver instance's life cycle.
+
+syntax: driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(seconds))
+
+advantages
+1. single statement is enough to handle NoSuchElementException for all elements
+2. it will not wait for maximum time if the element is available
+3. easy to use
+
+disadvantage
+1.  If the time is not sufficient to find an element then you get an exception
+
+
+2. explict wait method
+----------------------
+--> This intelligent wait is applied to a specific element and waits for a predefined condition 
+    (e.g., elementToBeClickable, visibilityOfElementLocated) to be true within a maximum time limit.
+--> This is generally considered the best practice for handling dynamic elements.
+
+It has two things
+1. declaration
+--> WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+2. usage
+--> WebElement username = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Username']")));
+    username.sendKeys("Messi");
+
+--> Inclusively it returns the web element after finding it in the page
+--> until() is method used to wait for the condition is true with in a maximum time
+--> ExpectedConditions is predefined class it has many conditions. we have to use them based on requirement
+
+
+1. it will not wait for maximum time if the element is available
+2. condition based, it will work more effectively
+3. it will wait for the condition to be true, then consider time
+4. we need to write multiple statements for multiple elements
+5. if still is not available with in the maximum time then still you have a chance of getting exception
+
+
+3. fluent wait method
+---------------------
+--> A more advanced form of explicit wait that allows for defining the maximum wait time, the frequency of checking (polling interval), 
+    and which exceptions to ignore during the waiting period.
+
+1. declaration
+--> Wait<WebDriver> mywait = new FluentWait<WebDriver>(driver)
+				.withTimeout(Duration.ofSeconds(30))        //maximum wait time
+				.pollingEvery(Duration.ofSeconds(5))        //polling time
+				.ignoring(NoSuchElementException.class);    //exception to ignore
+
+2. usage
+--> mywait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Username']")));
+--> WebElement username = mywait.until(new Function<WebDriver, WebElement>() {
+			public WebElement apply(WebDriver driver) {
+				return driver.findElement(By.xpath("//input[@placeholder='Username']"));
+			}
+		});
+
