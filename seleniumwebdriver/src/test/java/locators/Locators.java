@@ -1,4 +1,4 @@
-package day1;
+package locators;
 
 import java.util.List;
 
