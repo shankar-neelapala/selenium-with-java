@@ -1,4 +1,4 @@
-package webdriver_methods;
+package wait_strategies;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

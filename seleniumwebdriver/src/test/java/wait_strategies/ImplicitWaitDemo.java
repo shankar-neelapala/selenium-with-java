@@ -1,4 +1,4 @@
-package webdriver_methods;
+package wait_strategies;
 
 import java.time.Duration;
 
