@@ -1,4 +1,4 @@
-package day2;
+package css_selectors;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
