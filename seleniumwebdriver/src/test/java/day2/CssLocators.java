@@ -7,7 +7,7 @@ public class CssLocators {
 	public static void main(String args[]) {
 		ChromeDriver driver = new ChromeDriver();
 		
-		//driver.get("https://demo.nopcommerce.com/");		
+		driver.get("https://demo.nopcommerce.com/");		
 
 		//driver.manage().window().maximize();// it maximize the window
 		
