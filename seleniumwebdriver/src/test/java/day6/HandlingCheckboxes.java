@@ -47,7 +47,7 @@ public class HandlingCheckboxes {
 			checkBoxes.get(i).click();
 		}
 		
-		Thread.sleep(3000);
+		//Thread.sleep(3000);
 		//unselect the selected check boxes
 		for(WebElement ch : checkBoxes) {
 			if(ch.isSelected()) {

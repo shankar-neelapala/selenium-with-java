@@ -15,7 +15,7 @@ public class HanldingAlerts {
 
 	public static void main(String args[]) throws InterruptedException {
 		WebDriver driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		driver.get("https://testautomationpractice.blogspot.com/");		
 		driver.manage().window().maximize();
 		/*

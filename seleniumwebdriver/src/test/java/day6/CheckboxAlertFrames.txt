@@ -1,0 +1,92 @@
+Handling check boxes
+--------------------
+1. capture the web element and perform click() on that element to select or unselect the check box
+Example: WebElement sunday = driver.findElement(By.xpath("//input[@id='sunday']"));
+		 sunday.click();
+2. if there are multiple check boxes are needed to handle then store all the web elements in a list
+   and iterate through the list and perform click() method on the check boxes
+Example: List<WebElement> checkBoxes = driver.findElements(By.xpath("//input[@class='form-check-input' and @type='checkbox']"));
+		 for(WebElement cb : checkBoxes) {
+			cb.click();
+		}
+3. we can select or unselect the check boxes based on index 
+Example: //handling last three check boxes
+		// starting index = total size - number of check boxes from the last
+		// starting index = 7 - 3 = 4
+		for(int i = 4; i < checkBoxes.size(); i++) {
+			checkBoxes.get(i).click();
+		}
+
+		
+Handling Alerts
+---------------
+typef of alerts
+1. normal alert(with Ok button)
+2. confirm alert(Ok and Cancel buttons)
+3. prompt alert(prompt, Ok and Cancel button)
+
+--> we can't inspect the alert and we can't found any attributes to capture the alert
+capture the alert using driver.switchTo().alert() 
+-------------------------------------------------
+syntax: Alert myalert = driver.switchTo().alert() 
+
+1. normal alert(Ok button)
+--------------------------
+1. capture the alert in the form of alert object by using driver.switchTo().alert()
+2. perform actions on the alert object like getText() which returns the text in the alert
+3. accept() method is to accept() the alert i.e, clicking OK button on the alert
+
+2. confirm alert(Ok and Cancel button)
+--------------------------------------
+1. capture the alert in the form of alert object by using driver.switchTo().alert()
+2. accept() method is like clicking on OK button
+3. dismiss() method is like clicking on Cancel()
+
+3. prompt alert(prompt, Ok and Cancel button)
+---------------------------------------------
+1. capture the alert in the form of alert object by using driver.switchTo().alert()
+2. by using alert object call sendKeys() method to send text as prompt in the alert
+3. accept() method is like clicking on OK button
+4. dismiss() method is like clicking on Cancel()
+
+
+4. authentication alerts
+------------------------
+--> In some websites it will generate some authentication alerts which have some username and password
+--> By providing those credentials only we can open the page
+--> we cannot access this alert by using any web driver
+--> we have only option that is provide those username and password in the url itself
+syntax:	http://username:password@abc.com/
+
+Handling frames and iframes
+--------------------------
+Frames (Deprecated)
+------------------
+1. Definition: Used in older HTML to divide a webpage into multiple independent sections (rows or columns) using <frameset> and <frame> tags.
+2. Structure: Replaces the <body> tag with a <frameset> to define the layout.
+Iframes (Inline Frames)
+-----------------------
+1. Definition: An Inline Frame (<iframe>) embeds another HTML document within the current document, acting as a "window".
+2. Structure: Placed within the <body> of a standard HTML document, allowing them to exist alongside other elements.
+3. Usage: Very common for embedding multimedia (YouTube videos), advertisements, maps, or widgets.
+
+
+1. switch the driver from browser window to frame
+syntax:
+1. driver.switchTo().frame(int index)
+2. driver.switchTo().frame(WebElement);
+3. driver.switchTo().frame(name/id)
+
+1. driver.switchTo().frame(int index)
+-------------------------------------
+--> driver.switchTo().frame(0);//index
+--> driver.findElement(By.xpath("//input[@name='mytext1']")).sendKeys("Shankar");
+
+2. driver.switchTo().frame(WebElement)
+--------------------------------------
+--> WebElement frame1 = driver.findElement(By.xpath("//frame[@src='frame_1.html']"));
+--> driver.switchTo().frame(frame1)//web element
+
+--> once the driver is switched to frame then perform action on the frame whatever you want 
+--> driver is switched to frame and it does not automatically come back the window browser
+--> driver.switchTo().defaultContent() this method used to switch the browser to default page

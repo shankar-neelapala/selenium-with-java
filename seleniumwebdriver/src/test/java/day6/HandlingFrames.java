@@ -12,10 +12,10 @@ public class HandlingFrames {
 		WebDriver driver = new ChromeDriver();
 		driver.get("https://ui.vision/demo/webtest/frames/");
 		
-		WebElement frame1 = driver.findElement(By.xpath("//frame[@src='frame_1.html']"));
-		driver.switchTo().frame(frame1);//web element
+//		WebElement frame1 = driver.findElement(By.xpath("//frame[@src='frame_1.html']"));
+//		driver.switchTo().frame(frame1);//web element
 		
-		//driver.switchTo().frame(0);//index
+		driver.switchTo().frame(0);//index
 		driver.findElement(By.xpath("//input[@name='mytext1']")).sendKeys("Shankar");
 		driver.switchTo().defaultContent();
 		
