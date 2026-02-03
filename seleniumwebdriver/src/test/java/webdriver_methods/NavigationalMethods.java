@@ -1,4 +1,4 @@
-package checkboxes_alerts_frames;
+package webdriver_methods;
 
 import java.time.Duration;
 
