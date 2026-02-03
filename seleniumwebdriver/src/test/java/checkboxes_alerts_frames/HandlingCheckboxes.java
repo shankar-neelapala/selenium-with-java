@@ -1,4 +1,4 @@
-package day6;
+package checkboxes_alerts_frames;
 
 import java.time.Duration;
 import java.util.List;

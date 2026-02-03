@@ -1,4 +1,4 @@
-package day6;
+package checkboxes_alerts_frames;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
