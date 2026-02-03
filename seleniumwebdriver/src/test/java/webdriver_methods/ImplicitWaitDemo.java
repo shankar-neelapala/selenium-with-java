@@ -1,17 +1,20 @@
-package day5;
+package webdriver_methods;
+
+import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class SleepMethod {
-
-	public static void main(String args[]) throws InterruptedException {
+public class ImplicitWaitDemo {
+	
+	public static void main(String agrs[]) {
 		
-		WebDriver driver = new ChromeDriver();		
+		WebDriver driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));//default time is 0
+		
 		driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
-				
-		Thread.sleep(5000);//pause the execution up to specified time
+		
 		driver.findElement(By.xpath("//input[@placeholder='Username']")).sendKeys("Ronaldo");
 	}
 }
