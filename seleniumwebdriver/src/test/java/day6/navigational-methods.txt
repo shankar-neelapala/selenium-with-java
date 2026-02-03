@@ -1,0 +1,57 @@
+Navigational methods
+--------------------
+--> Navigational methods are used to navigate between the web pages on the browser window 
+--> These methods simulate user interactions with the browser's history and address bar. 
+1. navigate.to()
+2. navigate.back()
+3. navigate.forward()
+4. navigate.refresh()
+
+1. navigate.to()
+----------------
+--> driver.get() and navigate.to() is functionally same. there is difference in implementation, both methods are used to launch a web page on the browser window
+--> driver.get(String url)  it accepts the url in only string format
+--> navigate.to(String url) or navigate.to(URL url)  it accepts the url in both string and java.net.URL Object
+--> navigate.to() internally calls get() method to launch the page
+syntax: driver.navigate.to(String url)
+        ---> driver.navigate    returns an object of Navigational class from that we are calling to() method
+Example: driver.navigate.to("https://www.google.com/")
+
+
+2. navigate.back()
+------------------
+--> navigate.back() method is used to navigate from the current window browser to previous window browser
+--> It performs same action like the backward button in the browser(left arrow - top left corner) to navigate previous window
+syntax: driver.navigate.back()
+
+3. navigate.forward()
+---------------------
+--> navigate.forward() method is used to navigate from the current window browser to forward, moving next page in the browser's history
+--> --> It performs same action like the forward button in the browser(right arrow - top left corner) to navigate next browser window 
+syntax: driver.navigate.forward();
+
+4. navigate.refresh()
+---------------------
+--> This method reloads the current web page, equivalent to pressing the F5 key or clicking the "Refresh" button in the browser.
+syntax: driver.navigate.refresh()
+
+-------------------------------------------------------------------------------------------------------------------
+
+1. getWindowHandle()        --> returns an ID of singlw browser window where the driver is focused
+2. getWindowHandles()       --> returns a set of strings of multiple browser windows 
+These two helps to 
+a. switching the driver from one window to another browser window based on window ID
+b. closing specific browser window based on window ID
+
+switching driver
+----------------
+--> switching driver from one browser window to another browser window
+--> first we need to capture the total opening browser windows(with the help of getWindowHandle() and getWindowHandles()) on the browser then switch 
+syntax: driver.switchTo.window(windowID)
+
+closing specific browser window
+-------------------------------
+--> first we need to capture the total opening browser windows(with the help of getWindowHandle() and getWindowHandles()) on the browser then close
+--> By using close() methods
+syntax: --> capture all the windowID's the iterate through ID's 
+        --> if the required browser window comes then close it by using driver.close()
