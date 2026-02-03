@@ -1,4 +1,4 @@
-package day4;
+package xpath_axes;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
