@@ -1,0 +1,60 @@
+Dropdown
+--------
+A dropdown list in HTML is primarily created using the <select> element, 
+which contains nested <option> elements for the available choices.
+
+types:
+1. select dropdown
+2. bootstrap dropdown
+3. hidden dropdown
+
+
+1. select dropdown
+------------------
+--> we can access select dropdown using the Select class in the selenium webdriver
+--> find select tag element and store it
+--> create an object for Select class by passing select web element as parameter 
+Example: 
+		WebElement element = driver.findElement(By.xpath(""));
+		Select dropdown = new Select(element);
+--> dropdown.selectByVisibleText(String text)   //selection based on the option text
+--> dropdown.selectByValue(String value)        //selection based on the value of value attribute in the option tag
+--> dropdown.selectByIndex(int index)           //selection based on the index of option in the select dropdown
+
+
+2. bootstap dropdown
+--------------------
+--> it does not use select tag to define dropdown and option
+--> A Bootstrap dropdown is a UI component created using the Bootstrap framework that functions as a dropdown menu but,
+	unlike a traditional HTML dropdown (which uses the <select> tag), is typically built with non-standard HTML tags like <div>, <ul>, and <li> elements, along with CSS and JavaScript.
+	
+steps to select bootstrap dropdown
+1. locate the dropdown toggle
+2. click the toggle
+3. find all options
+4. iterate and select
+
+Example:
+--> WebElement element = driver.findElement(By.xpath("//button[@id='menu1']")); //locate the toggle
+--> element.click(); //click the toggle
+--> List<WebElement> optionsEle = driver.findElements(By.xpath("//ul[@class='dropdown-menu']//a")); //find all items
+--> for(WebElement option : optionsEle) {
+		System.out.println(option.getText());
+	} // iterate and select
+	
+
+3. hidden dropdowns
+-------------------
+--> hidden dropdowns are not visible in the html document directly. we can't directly locate them
+
+steps to select bootstrap dropdown
+1. locate the dropdown toggle
+2. click the toggle
+3. find all options
+4. iterate and select
+
+finding all options is difficult becuase they are hidden, directly not visible in the dom
+--> By using selectorshub turn on debugger the click on the dropdown button
+--> find the options in debug mode
+--> In Devtools options go to event listeners open blur and remove it
+
