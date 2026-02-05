@@ -1,0 +1,64 @@
+Java Script Executor
+--------------------
+--> The JavaScriptExecutor is an interface in Selenium that allows testers to execute JavaScript code directly within the browser context.
+--> It provides a mechanism to interact with web elements and the DOM in scenarios where standard Selenium WebDriver commands might fail.
+
+Why use JavaScriptExecutor?
+---------------------------
+1. Standard Selenium methods sometimes struggle with certain web scenarios. JavaScriptExecutor is typically used as a fallback for: 
+2. Interacting with hidden or obstructed elements: It can bypass visibility checks and click elements that are not immediately interactable 
+   using standard click() methods.
+3. Scrolling the page: Testers can precisely control page scrolling to bring elements into view.
+4. Handling dynamic content: It can retrieve values directly from the DOM, useful for elements loaded asynchronously.
+5. Generating browser events: It can generate alerts, prompts, or trigger specific events that WebDriver does not support natively.
+6. Modifying DOM attributes: It can change element properties, such as a field's value or style attributes, for testing or highlighting purposes.
+
+The JavaScriptExecutor interface provides two primary methods: 
+-------------------------------------------------------------
+1. executeScript(): Executes JavaScript code synchronously. The test execution pauses until the script finishes and returns a result.
+2. executeAsyncScript(): Executes JavaScript code asynchronously. The script must explicitly signal completion by invoking a provided callback function. 
+   This is useful for performance-intensive or time-consuming operations like AJAX calls.
+   
+
+--> The "ElementClickInterceptedException" in Selenium occurs when you try to click on an element, but another element (like an overlay, popup, or banner) 
+	is obscuring it and would receive the click instead
+--> When these type of exception raised when we perform basic action on web elements like sendKeys() and click()
+--> In those scenarios use java script executor to perform an action because it direclty perform actions on DOM (selenium web driver is performs action like a real user)
+
+Understanding how js execuots works
+-----------------------------------
+--> webdriverElement.click()
+--> click() is a method which performs action like clicking on something(link, checkbox, radio button etc). Internally click() method is like js statements to execute inorder to perform an action
+--> when selenium fails we use js executor to perform the action by using js statements
+
+1. executeScript()
+-----------------
+--> The arguments keyword in the JavaScript refers to the optional arguments passed to the executeScript method in Selenium (e.g., arguments[0] refers to the first argument after the script string).
+Example:
+--> js.executeScript("arguments[0].click()", radiobtn);
+--> arguments[0] refers to radiobtn here. i.e, click action is performed on this button
+--> arguments is an array, here radiobtn is in 0th position so specify its index 
+
+scrolling page
+---------------
+--> Cannot access through selenium becuase they are not web element, they belongs to browser so we use js to handle 
+1. js.executeScript("window.scrollBy(0, 1500)");
+--> window.scrollBy() is a method used to scroll the from starting pixel(first parameter) to ending pixel(second parameter)
+--> in the above example it starts scrolling at 0 pixel upto 1500 pixel
+
+js.executeScript("return window.pageYOffset"))	it return y-axis pixel value that how much it is scrolled(exaclty where it is)
+--> the above syntax is for scroll bar is horizontal, if the scroll bar is vertical then use "pageXOffset"
+
+window.scrollBy(start, end) --> start scrolling at start pixel and stops at end pixel value
+window.scrollBy(start, -end) --> same operation but reverse(scrolling up/back)
+
+window.scrollBy(0, document.body.scrollHeight)	--> scroll till end of the page(if it vertical scroll bar use scrollWidth)
+
+
+Zoom In and Zoom Out
+--------------------
+--> These are also not web elements we can't handle them using selenium
+--> document.body.style.zoom='value%'
+--> specify the whatever value you want to zoom in or zoom out (WKT by default value is 100)
+Example: document.body.style.zoom='50%' // zoom in
+		document.body.style.zoom='150%' // zoom out
