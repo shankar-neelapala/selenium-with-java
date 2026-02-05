@@ -1,0 +1,56 @@
+Mouse Actions
+-------------
+--> In Selenium, mouse actions are automated using the Actions class which provides methods to simulate low-level user interactions with web elements,
+--> such as clicks, hovering, and drag-and-drop operations. 
+
+1. mouse hover action
+2. right click action
+3. double click action
+4. drag and drop
+
+--> Actions class contains all the methods that are helps to perform automated mouse actions
+Syntax: Actions object = new Actions(WebDriver);
+
+Common Actions class methods
+----------------------------
+1. click(WebElement target): Performs a left-mouse click in the middle of the specified web element.
+2. doubleClick(WebElement target): Performs a double left-mouse click on the specified element.
+3. contextClick(WebElement target): Performs a right-mouse click on the specified element to open a context menu.
+4. moveToElement(WebElement target): Moves the mouse pointer to the center of the specified element (useful for simulating a mouse hover to reveal hidden menus).
+5. clickAndHold(WebElement target): Performs a left-mouse button press without releasing it, at the center of the specified element.
+6. release(): Releases the left-mouse button that was previously pressed and held by clickAndHold().
+7. dragAndDrop(WebElement source, WebElement target): Drags an element from a source location and drops it onto a target element.
+8. dragAndDropBy(WebElement source, int xOffset, int yOffset): Drags an element from a source location by a specific pixel offset in the X and Y dimensions.
+
+Example
+1. mouse hover action --> moveToElement(webelement)
+---------------------------------------------------
+--> Actions act = new Actions(driver);
+--> act.moveToElement(computers).build().perform();
+
+2. right click action	--> contextClick(webelement)
+----------------------------------------------------
+--> act.contextClick(button).perform();
+
+Note: 
+--> In Actions class every action definitely end withs either ".build().perform()" or ".perform()" methods
+--> without build() and perform() method it doesn't do any action on the page
+--> build() method is used to build/create an action
+--> perform() method is used to perform an action
+--> we can use perform() along with build() method or directly we can use perform() method
+--> perform() method is capable of building/creating an action and performing an action
+
+purpose of build() method?
+--------------------------
+--> it is used to build an action
+--> in some situations we need to build the action at first and perform action later. in this type of situations build method is required
+--> we need store the builded/created action to perform an action later, hence there is a class to store an action called "Action"
+
+Action
+------
+--> used to store an action builded by build() method
+syntax: Action object = Actions_object.mouseActionMethods.build();
+		object.perform();
+Example:
+--> Action myact = act.moveToElement(desktops).click().build();
+--> myact.perform(); 
