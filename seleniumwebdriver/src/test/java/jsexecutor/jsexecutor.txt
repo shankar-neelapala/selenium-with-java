@@ -62,3 +62,53 @@ Zoom In and Zoom Out
 --> specify the whatever value you want to zoom in or zoom out (WKT by default value is 100)
 Example: document.body.style.zoom='50%' // zoom in
 		document.body.style.zoom='150%' // zoom out
+
+
+How sendKeys() works internally for file upload
+-----------------------------------------------
+1️⃣ Selenium detects this is a <input type="file">
+When sendKeys() is called, Selenium checks:
+	1. Is the element an <input>?
+	2. Is type="file"?
+	3. If yes → Selenium switches to file upload mode, not normal keystroke mode.
+
+2️⃣ Selenium does NOT interact with the OS file chooser
+Important rule: 🚫 Selenium cannot control native OS dialogs (Windows file picker, macOS Finder, etc.)
+	So instead of clicking the “Choose File” button, Selenium does this:
+	✔️ Directly sets the file path on the input element
+
+3️⃣ Browser-level behavior (Chrome / Firefox)
+---------------------------------------------
+Behind the scenes, Selenium sends a command to the browser driver:
+ChromeDriver / GeckoDriver
+Using WebDriver protocol
+The browser then:
+	1. Validates the file path exists on the local machine
+	2. Assigns it to the file input’s internal value
+	3. Marks the file as “selected”
+Equivalent to this user action:
+	1. User clicks “Choose File” → selects Anagram2.java → clicks Open
+
+4️⃣ Why absolute path is required
+---------------------------------
+Example: "D:\\mccp\\mccp1\\Anagram2.java"
+Must be:
+	1. Absolute path ✅
+	2. File must exist ✅
+	3. Accessible to the browser process ✅
+❌ Relative paths usually fail
+❌ Non-existent files throw InvalidArgumentException
+
+				Internal flow summary (step-by-step)
+				------------------------------------
+						sendKeys(path)
+						   ↓
+						Selenium recognizes <input type="file">
+						   ↓
+						WebDriver sends file path to browser
+						   ↓
+						Browser validates file exists
+						   ↓
+						Browser attaches file to input
+						   ↓
+						File is ready for upload
