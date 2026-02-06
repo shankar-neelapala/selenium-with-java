@@ -1,0 +1,30 @@
+TakeScreenshot
+--------------
+--> It is an interface provided by the selenium web driver used to capture the screenshot of the web page
+syntax:
+1. assign an object to this interface
+Example: TakesScreenshot ts = (TakesScreenshot) driver;	//driver is chome/edge/firefox
+
+syntax to capture screenshot
+--> ts.getScreenshotAs(OutputType.FILE);
+--> getScreenshotAs() takes screenshot in specified format here it is in file, it may BYTES, BASE64 format
+--> and it return File object
+Example
+		File src = ts.getScreenshotAs(OutputType.FILE);
+		//D:\selenium-with-java\seleniumwebdriver\screenshots
+		File target = new File(System.getProperty("user.dir")+"\\screenshots\\fullpage.png");
+		src.renameTo(target); //copying src to targte
+--> System.getProperty("user.dir") is a method which gives current working directory, in that under screenshots folder the file is stored
+--> or you can give the full location where you want to the store the file
+
+WebElement interface
+--------------------
+--> it also provides the same method to capture screenshots for web element
+Example
+		TakesScreenshot ts = (TakesScreenshot) driver;		
+		//capturing specific web element
+		WebElement element = driver.findElement(By.xpath("//img[@alt='nopCommerce demo store']"));
+				
+		File src = element.getScreenshotAs(OutputType.FILE);
+		File target = new File(System.getProperty("user.dir")+"\\screenshots\\logo.png");
+		src.renameTo(target); 
