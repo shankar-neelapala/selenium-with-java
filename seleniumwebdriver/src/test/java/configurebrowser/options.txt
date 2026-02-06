@@ -1,0 +1,55 @@
+We have ChromeOptions, EdgeOptions, FirefoxOptions etc classes used t
+--> The ChromeOptions class in Selenium WebDriver is used to customize and control the behavior, settings, and capabilities of the Google Chrome browser session during automated tests. 
+--> It allows users to tailor the browser's configuration to meet specific testing requirements, which is crucial for flexible and efficient test automation. 
+
+Key Uses and Functionality
+--------------------------
+1. Headless Mode: Run the browser without a graphical user interface (GUI), which is useful for continuous integration (CI/CD) pipelines and server environments where a visible UI is unnecessary.
+2. Browser Behavior Control: Customize how the browser starts and operates. Common examples include:
+   --> Maximizing the window on startup (--start-maximized).
+   --> Running in incognito mode (--incognito) to ensure a clean session without stored cookies or history.
+   --> Disabling notifications, pop-ups, and infobars (--disable-notifications, --disable-popup-blocking, --disable-infobars) that might interfere with test execution.
+   --> Ignoring SSL certificate errors (--ignore-certificate-errors or setAcceptInsecureCerts(true)) for testing sites with self-signed or invalid certificates.
+3. Managing Extensions and Profiles: Load specific extensions or use custom user profiles for persistent data like cookies and history.
+   --> Add extensions: options.addExtensions(new File("/path/to/extension.crx"))
+   --> Use a custom profile: --user-data-dir=/path/to/your/custom/profile
+4. Enhancing Performance and Stability: Improve test execution performance by disabling unnecessary features.
+   --> Disable GPU hardware acceleration (often needed in certain VM or Docker environments): --disable-gpu
+   --> Disable extensions: --disable-extensions
+5. Configuring Network Behavior: Set up proxy servers or bypass proxy settings.
+   --> Set a proxy server: --proxy-server=http://my-proxy.com:8080
+
+Advantages
+----------
+1. we can do multiple task(since execution happend backend
+2. increase performance(faster execution)
+
+disadvantages
+-------------
+1. we cannot see the actions on the page. so user cannot understand flow/functionality of the flow in the begining.
+
+
+1 Headless Mode testing
+--> ChromeOptions options = new ChromeOptions();
+	options.addArguments("--headless=new");
+	
+2. Accept SSL
+--> ChromeOptions options = new ChromeOptions();
+	options.setAcceptInsecureCerts(true); or --ignore-certificate-errors
+
+3. Romeve Chrome is being controlled by automated test software info bar
+--> options.setExperimentalOption("excludeSwitches", new String[] {"enable-automation"});
+
+4. run test case in incognito mode
+--> ChromeOptions options = new ChromeOptions();
+	options.addArguments("--incognito");
+	
+5. add extensions at run time
+--> By default there are no extensions
+steps:
+1. get CRX file for any extension you want
+2. pass CRX file path in automation script in chrome options
+
+How to get CRX  file?
+--> first add CRX extractor/downloader to chrome
+--> then go to required extension right click then download extension as CRX file
