@@ -1,4 +1,4 @@
-package handlescreenshots;
+package takingscreenshots;
 
 import java.io.File;
 import java.io.IOException;
