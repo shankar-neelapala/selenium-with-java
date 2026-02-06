@@ -1,0 +1,22 @@
+SVG (Scalable Vector Graphics)Elements
+--------------------------------------
+--> Handling SVG (Scalable Vector Graphics) elements in Selenium requires a different approach than standard HTML elements,
+	primarily by using specialized XPath locators and the Actions class for reliable interaction.
+--> Standard Selenium locators (like By.tagName("svg") or standard XPaths) often fail because SVG elements use an XML namespace, not the standard HTML one. 
+--> Use the local-name() or name() XPath functions to locate SVG elements and their nested components (like <g>, <path>, <circle>, <text>). 
+
+XPath Syntax Examples
+1. Locate the parent <svg> tag:
+WebElement svgElement = driver.findElement(By.xpath("//*[local-name()='svg']"));
+
+2. Locate a specific child element (e.g., <circle> or <path>) inside an SVG:
+WebElement svgChildElement = driver.findElement(By.xpath("//*[local-name()='svg']//*[local-name()='circle']"));
+
+Note the use of * with local-name() for the element name.
+3. Locate an element using an attribute (e.g., id or class):
+WebElement specificSvgElement = driver.findElement(By.xpath("//*[local-name()='svg' and @id='mySvgId']"));
+
+4. Locate a child element with a specific attribute:
+WebElement specificSvgPath = driver.findElement(By.xpath("//*[local-name()='path' and contains(@fill, '#ff0000')]"));
+
+--> we cant direclty use xpath for svg elements use along with name() or local-name() method.

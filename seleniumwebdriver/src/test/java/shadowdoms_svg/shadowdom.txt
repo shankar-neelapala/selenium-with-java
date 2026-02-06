@@ -1,0 +1,93 @@
+DOM - document object model
+---------------------------
+The Document Object Model (DOM) is how a web browser represents a web page so that programs (mostly JavaScript) can interact with it.
+
+Think of it like this 🌳 tree
+
+When a browser loads an HTML document, it turns that document into a tree structure.
+Each part of the page becomes a node in that tree.
+
+Example: sample html code
+	<html>
+	  <body>
+		<h1>Hello</h1>
+		<p>Welcome</p>
+	  </body>
+	</html>
+DOM tree version:
+	Document
+	 └── html
+		 └── body
+			 ├── h1
+			 │   └── "Hello"
+			 └── p
+				 └── "Welcome"
+What the DOM actually is
+1. A programming interface for HTML and XML documents
+2. A live representation of the page in memory
+3. Made up of objects, not just text
+
+Each HTML element becomes an object you can:
+--> Read
+--> Change
+--> Add to
+--> Remove
+--> Listen to for events
+
+"The DOM is the browser’s in-memory, tree-like model of a web page that allows JavaScript to read and modify the page dynamically."
+The DOM is what lets JavaScript do things like:
+1. Change text or HTML
+2. Update styles
+3. React to user actions (clicks, typing, scrolling)
+4. Create dynamic content
+Example:
+	document.querySelector("h1").textContent = "Hi there!";
+	--> Access the DOM
+	--> find h1 tag
+	--> change the text
+	
+Shadow DOM
+----------
+Shadow DOM is a way to create isolated, encapsulated DOM trees inside elements, protecting their structure and styles from the rest of the page.
+It lets developers:
+1. Encapsulate HTML, CSS, and behavior
+2. Prevent styles and structure from leaking in or out
+3. Build reusable, self-contained components
+"DOM inside another DOM"
+The #shadow-root is the Shadow DOM.
+
+1. Shadow Host: The regular DOM node that the shadow DOM is attached to.
+2. Shadow Root: The root node of the shadow tree. 
+3. Shadow Tree: The hidden DOM tree inside the shadow DOM.
+4. Shadow Boundary: The invisible line where the shadow DOM ends and the regular (light) DOM begins.
+
+you can automate Shadow DOM elements, but not exactly like normal DOM
+Example: 
+	<my-component>
+	  #shadow-root
+		<button>Click</button>
+	</my-component>
+	if you try to click the button then the browser blocks direct traversal into #shadow-root.
+	if you want to access shadow DOM elements then you must explicitly enter the shadow root.
+steps to access the shadow DOM elements
+1. You must get the shadow host first,
+2. then access its shadowRoot, 
+3. then locate the element and perform action
+There may be nested shadow DOM's also
+
+--> we cannot use xpaths here to identify the elements in the shadow DOM
+	(if you try then you got NoSuchElementException)
+--> Only we can use CSS Selector to identify the shadow DOM elements
+
+By using selectorshub we got the code direclty to identify the element
+Alert given by selectorshub when we are trying to identify shadow DOM elements
+	This element is inside shadow dom which can't be accessed through XPath, use cssSelector
+Example:
+	//This Element is inside single shadow DOM.
+	//String cssSelectorForHost1 = "#shadow-root";
+	SearchContext shadow = driver.findElement(By.cssSelector("#shadow-root")).getShadowRoot();
+	Thread.sleep(1000);
+	shadow.findElement(By.cssSelector("#shadow-element"));
+	
+--> 1. get the shadow root by using getShadowRoot() method which returns the SearchContext object
+--> 2. from that object we perform actions on shadow-root elements
