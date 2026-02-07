@@ -1,0 +1,38 @@
+Data Driven Testing
+-------------------
+--> Data-Driven Testing is a type of software testing methodology or more exactly approach to the architecture
+	of automated tests by creating test scripts and reading data from data files. 
+ 
+--> Data-driven testing (sometimes abbreviated to DDT) is a software testing methodology 
+	where test data is stored in external data sources like spreadsheets, databases, or CSV files,
+	rather than hard coded into the test case, allowing the same test logic to be executed multiple times with different sets of data.
+	
+Selenium itselfg doesn't provide any interfaces or classes to read or write data from external files
+we need to add external dependency to work on MS Excel file called "Apache POI"
+
+1. open the file in read ro write mode using
+	a. FileInputStream class for read data from the file
+	b. FileOutputStream class for write data into the file
+
+Excel file --> Workbook --> Sheets --> Rows --> Cells (Excel file structure)
+
+Apache POI provides following classes to work on excel file:
+1. XSSFWorkbook -- workbook
+2. XSSFSheet -- sheets
+3. XSSFRow -- rows
+4. XSSFCell -- cells
+
+add these following dependencies to your maven project in order to work with excel files
+<!-- Apache POI Core -->
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi</artifactId>
+    <version>5.2.5</version> <!-- Use the current stable version -->
+</dependency>
+
+<!-- Apache POI for Excel (.xlsx) files -->
+<dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-ooxml</artifactId>
+    <version>5.2.5</version> <!-- Use the current stable version -->
+</dependency>
