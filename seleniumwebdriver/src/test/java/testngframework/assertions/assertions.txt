@@ -1,0 +1,55 @@
+Assert 
+------
+--> In TestNG, the Assert class is used to verify whether a test’s actual result matches the expected result.
+--> It decides pass or fail for your test case.
+
+We use assertion for validaion. General validtion like if-else statements does not validate the test
+Example:
+	if("Ronaldo".equals("Messi"){
+		sysout("fail");}
+	it is failed but the test is passed we are printing the value that is failed, the test method return  test is passed
+so we need Assert class for test case validation
+Example:
+	Assert.assertEquals("Ronaldo","Messi");
+	test is failed
+	
+Two types of assertions
+-----------------------
+1. hard assertion
+2. soft assertion
+
+1. Hard Assertion
+-----------------
+--> We can access from "Assert" class
+--> Methods are static
+--> If the assertion is failed then remaining statement will not be executed
+--> Used when a failure is critical and further steps make no sense
+Example:
+	@Test
+	public void hardAssertExample() {
+	    System.out.println("Step 1");
+	    Assert.assertEquals(10, 20);   //fails here
+	    System.out.println("Step 2");  //never executes
+	}
+
+2. Soft Assertion
+-----------------
+--> We can access from "SoftAssert" class object
+--> If the assertion is failed then still the remaining statements will execute
+--> Used when you want to validate multiple conditions in one test
+--> All failures are reported together at the end
+Example:
+	@Test
+	public void softAssertExample() {
+	    SoftAssert softAssert = new SoftAssert();
+	
+	    System.out.println("Step 1");
+	    softAssert.assertEquals(10, 20);   //failure recorded
+	
+	    System.out.println("Step 2");
+	    softAssert.assertTrue(false);      //another failure
+	
+	    softAssert.assertAll();             //mandatory
+	}
+	
+--> If you forget assertAll() --> test will PASS even with failures

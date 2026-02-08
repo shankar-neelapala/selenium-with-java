@@ -1,0 +1,43 @@
+TestNG
+-------
+--> TestNG ("Test Next Generation") is an open-source, powerful testing framework for Java, 
+	designed to simplify a broad range of testing needs, including unit, functional, and end-to-end testing
+	
+1. Annotations: Simplifies coding with annotations (e.g., @Test, @BeforeMethod, @AfterClass).
+2. Data-Driven Testing: Uses @DataProvider to pass multiple sets of data to a single test method.
+
+Advantages
+----------
+1. Test suites and Test cases
+	TestNG uses a testng.xml file to organize multiple test cases into a single test suite. This allows you to manage large collections of tests centrally, 
+	choosing which ones to run or skip without modifying the actual code.
+2. Grouping of test cases
+	You can assign tests to specific categories (e.g., "smoke", "regression", "sanity") using the groups attribute.
+3. Prioritize
+	By using the priority attribute in the @Test annotation, you can control the exact sequence in which your tests run
+4. Parametarized
+	TestNG supports data-driven testing, allowing you to run the same test method multiple times with different sets of data.
+5. Parallel testing
+	You can execute multiple tests simultaneously in different threads
+6. Reports
+	Unlike basic frameworks, TestNG automatically generates detailed HTML and XML reports. 
+	These reports clearly show the number of passed, failed, and skipped tests, along with execution times and error logs for easier debuggin
+	
+TestNG Configuration
+--------------------
+1. Install TestNG for eclipse plugin through eclipse marketplace
+2. add TestNG library to the project or add TestNG dependency in pom.xml file
+
+
+@Test annotation
+----------------
+--> @Test annotation initiates the execution of test cases
+--> write this annotation above the method signature
+--> we write multiple methods for a test case (eg:each method is for one step)
+1. TestNG execute tests based on the alphabetical order
+2. @Test(priority=number) controls the order of execution based on priority
+3. Once you provided priority to the methods then order of methods is not considered
+4. priorities can be random numbers(Not neccessary to have consecutive numbers)
+5. If you don't provide any priority then defualt value is 0
+6. If priorities are same then execution again works based on alphabetical order
+7. Priority can be a negative number also

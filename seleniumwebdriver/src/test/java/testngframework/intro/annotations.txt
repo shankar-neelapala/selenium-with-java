@@ -1,0 +1,59 @@
+TestNG follows the order is
+	Suite
+  		→ Test
+     		→ Class
+        		→ Method
+
+1. @BeforeMethod & @AfterMethod
+-------------------------------
+--> These run before and after every single test method (@Test).
+--> @BeforeMethod
+	@Test
+	@AfterMethod
+--> This happens for each @Test method in the class.
+
+Typical use cases
+1. Open browser
+2. Login
+3. Reset test data
+4. Cleanup after each test
+
+@BeforeClass & @AfterClass
+--------------------------
+--> Run once per class, before and after all test methods in that class.
+--> @BeforeClass
+  	@Test
+  	@Test
+	@AfterClass
+Typical use cases
+1. Launch browser once
+2. Create shared test data
+3. Close browse
+
+
+@BeforeTest & @AfterTest
+------------------------
+--> Run before and after a <test> tag in testng.xml.
+--> Before <test> in testng.xml
+   		→ all classes inside that <test>
+	After <test>
+	
+Typical use cases
+1. Set environment (QA / Stage / Prod)
+2. Initialize DB connections
+3. Global config for a group of classes
+
+
+@BeforeSuite & @AfterSuite
+---------------------------
+--> Run once for the entire test suite.
+--> @BeforeSuite
+  		→ all tests(<text>)
+	@AfterSuite
+
+Typical use cases
+1. Start/stop Selenium Grid
+2. Load global configs
+3. Generate reports
+4. One-time setup & cleanup
+
