@@ -1,0 +1,61 @@
+Parametarization
+----------------
+--> Test parameterization involves running the same test with multiple different values
+--> This type of data-driven testing allows you to test the same basic logic or functionality in your application with multiple inputs, 
+	without having to copy and maintain duplicate test cases.
+	
+TestNG supports two main ways to do this.
+1. Using @Parameters (from testng.xml)
+--------------------------------------
+Usage:
+	You have few parameters
+	Values are environment-specific (browser, URL, credentials, etc.
+Step 1: Define parameters in testng.xml
+	Example: <test name="LoginTest">
+				<parameter name="username" value="admin"/>
+				<parameter name="password" value="admin123"/>
+				<classes>
+				  <class name="tests.LoginTest"/>
+				</classes>
+			  </test>
+Step 2: Use @Parameters in your test
+	Example: @Test
+			@Parameters({"username", "password"})
+			public void loginTest(String user, String pass) {
+				System.out.println(user + " " + pass);
+			}
+TestNG injects values from XML at runtime
+Parameter names must match exactly
+
+
+2. Using @DataProvider Annotation
+---------------------------------
+Usage:
+	You need multiple data sets
+	You want data-driven testing
+	Inputs change frequently
+Example:
+	public class LoginTest {
+
+		@DataProvider(name = "loginData")
+		public Object[][] getData() {
+			return new Object[][] {
+				{"admin", "admin123"},
+				{"user1", "user123"},
+				{"guest", "guest123"}
+			};
+		}
+
+		@Test(dataProvider = "loginData")
+		public void loginTest(String user, String pass) {
+			System.out.println(user + " " + pass);
+		}
+	}
+--> @DataProvider is a table of test data
+--> Object[ number_of_tests ][ number_of_parameters ]
+--> One row = one execution of the test method(In the above example loginTest(user, pass) run 3 times because dataProvider has 3 rows)
+--> Object → parent of all classes(for any type data it is applicable)
+Note:
+1. Outer array → number of test runs
+   Inner array → parameters for that run
+2. Number of columns in Object[][] must match number of parameters in @Test method Otherwise → TestNGException

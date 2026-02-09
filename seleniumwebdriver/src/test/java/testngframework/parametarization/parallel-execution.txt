@@ -1,0 +1,35 @@
+Parallel Execution
+------------------
+--> Parallel execution in TestNG means running multiple test methods / classes / tests at the same time instead of one after another.
+--> The main goal is to reduce total execution time by using multiple threads.
+--> TestNG achieves this using multithreading, and it’s configured mainly through the testng.xml file.
+
+Why use parallel execution?
+1. Faster test execution
+2. Efficient use of CPU resources
+3. Useful for large regression suites
+4. Very common in Selenium automation
+
+TestNG creates multiple threads, and each thread runs tests independently based on your configuration.
+You control: 1.What runs in parallel, 2.How many threads are used
+
+Parallel execution modes
+------------------------
+1. parallel="methods"
+	Runs test methods in parallel
+	Methods can be from the same or different classes
+	Each @Test method runs in a separate thread
+
+2. parallel="classes"
+	Runs test classes in parallel
+	Methods inside a class run sequentially
+	Good balance of speed and stability
+	
+3. parallel="tests"
+	Runs <test> tags in parallel
+	Very popular for cross-browser testing
+	
+thread-count="5" (2-5)
+---------------
+--> Maximum number of threads TestNG can create
+--> More threads ≠ always faster (depends on CPU & test design)

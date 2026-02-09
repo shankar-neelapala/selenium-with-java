@@ -32,14 +32,16 @@ public class OrangeHRMTest {
 		driver.findElement(By.xpath("//button[@type='submit']")).click();
 	}
 	
-//	@Test(priority = 3)
-//	void logout() {
-//		driver.findElement(By.xpath("//i[@class='oxd-icon bi-caret-down-fill oxd-userdropdown-icon']")).click();
-//		driver.findElement(By.xpath("//a[normalize-space()='Logout']")).click();
-//	}
+	@Test(priority = 3)
+	void logout() throws InterruptedException {
+		driver.findElement(By.xpath("//i[@class='oxd-icon bi-caret-down-fill oxd-userdropdown-icon']")).click();
+		driver.findElement(By.xpath("//a[normalize-space()='Logout']")).click();
+		Thread.sleep(3000);
+	}
 	
 	@Test(priority = 4)
-	void closeApp() {
+	void closeApp() throws InterruptedException {
+		Thread.sleep(3000);
 		driver.quit();
 	}
 }
