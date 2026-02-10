@@ -80,7 +80,7 @@ Important rule: 🚫 Selenium cannot control native OS dialogs (Windows file pic
 3️⃣ Browser-level behavior (Chrome / Firefox)
 ---------------------------------------------
 Behind the scenes, Selenium sends a command to the browser driver:
-ChromeDriver / GeckoDriver
+ChromeDrive
 Using WebDriver protocol
 The browser then:
 	1. Validates the file path exists on the local machine
