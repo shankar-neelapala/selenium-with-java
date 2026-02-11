@@ -1,0 +1,98 @@
+Page Object Model (POM) Pattern
+-------------------------------
+--> Page object model is a design pattern used in selenium automation testing.
+--> Each web page of an application is represented as a separate Java class, 
+	and all page elements and actions are stored in that class.
+Structure:
+	pages
+	 └── LoginPage.java
+	tests
+	 └── LoginTest.java
+
+Advantages of POM
+1. Code reusability
+2. Easy maintenance
+3. Cleaner test scripts
+4. Less duplication
+5. Improves readability
+6. Changes in UI affect only one file
+
+If the locator is changed(XPath or name ) then you have modify only page class not all test cases(methods)
+--> POM Design pattern to separate test logic and UI elements
+
+We can implement this design pattern in two methods
+1. without using PageFactory class
+2. using PageFactory class
+
+common steps to implement pom
+1. intitialize the driver
+2. identify locators
+3. perform actions
+
+PageFactory class
+-----------------
+--> PageFactory is a Selenium support class that helps you initialize web elements in a Page Object Model (POM) class.
+--> Instead of identify web elements manually every time PageFactory class help you to 
+	Declare elements using annotations like @FindBy
+	
+withou PageFactory class the POM often look like this
+	WebElement username = driver.findElement(By.id("username"));
+	WebElement password = driver.findElement(By.id("password"));
+	WebElement loginBtn = driver.findElement(By.id("login"));
+Problems:
+1. Repetitive
+2. Harder to maintain
+3. Elements are fetched immediately (even if not needed yet)
+
+By using PageFactory class:
+	Create a Page class
+	Declare elements using @FindBy
+	Call PageFactory.initElements()
+	
+Common @FindBy() annotations
+--> @FindBy(id = "idValue")
+--> @FindBy(name = "nameValue")
+--> @FindBy(className = "classValue")
+--> @FindBy(css = "cssSelector")
+--> @FindBy(xpath = "//xpath")
+--> @FindBy(linkText = "Link Text")
+
+How PageFactory works
+---------------------
+--> It creates proxy objects for each @FindBy elemen
+--> The real findElement() happens only when you use the element
+--> This is called lazy initialization
+So selenium does not search for the element until you interact with it
+
+
+Limitations / gotchas
+Doesn’t wait automatically for elements
+--> You still need explicit waits
+
+Can throw StaleElementReferenceException if the page reloads
+--> Reinitialize or re-locate elements if the DOM changes
+
+Considered somewhat “legacy” by some teams
+--> Many modern frameworks prefer By locators + methods
+
+Example:
+	//Constructor to initialize driver
+	LoginPageMethod2(WebDriver driver){
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	//locators	
+	@FindBy(xpath = "//input[@placeholder='Username']")
+	WebElement textUsername;
+
+Why do we pass this?
+Because this represents the current page object instance, and PageFactory needs to know:
+	“Which object’s variables should I initialize?”
+this = current LoginPage object, we should tell for which page we are going to use PageFactory
+--> Takes this as current page class instance
+--> scan all the fields and identify annotations related to PageFactory like @FindBy
+--> Cretae proxy WebElement objects
+--> Assign those proxies back to the fields of this object
+
+
